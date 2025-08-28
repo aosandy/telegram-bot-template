@@ -103,18 +103,17 @@ class RoleView(ModelView):
 class AdminView(RoleView):
     can_view_details = True
     can_delete = True
-    can_edit = True
+    can_edit = False  # Temporarily disable edit to avoid form issues
     can_export = True
-    can_create = True
+    can_create = False  # Temporarily disable create to avoid form issues
     export_types = ["csv", "xlsx", "json", "yaml"]
 
-    column_editable_list = ["email", "first_name", "last_name"]
-    column_searchable_list = column_editable_list
+    column_editable_list = []  # Disable inline editing
+    column_searchable_list = ["email", "first_name", "last_name"]
     column_exclude_list = ["password"]
-    form_excluded_columns = ["confirmed_at"]
+    form_excluded_columns = ["confirmed_at", "password", "fs_uniquifier"]
     column_details_exclude_list = column_exclude_list
-    column_filters = column_editable_list
-    form_overrides = {"password": PasswordField}
+    column_filters = ["email", "first_name", "last_name"]
 
 
 # Flask views
